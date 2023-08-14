@@ -1,13 +1,19 @@
 from django.contrib import admin
-# from .models import related models
+from .models import CarModel, CarMake
 
 
-# Register your models here.
+class CarModelAdmin(admin.ModelAdmin):
+    list_display = ('name', 'make', 'type', 'year', 'dealer_id')
 
-# CarModelInline class
+class CarModelInline(admin.TabularInline):  # You can also use StackedInline if you prefer
+    model = CarModel
+    extra = 1  
 
-# CarModelAdmin class
-
-# CarMakeAdmin class with CarModelInline
+class CarMakeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    inlines = [CarModelInline]
 
 # Register models here
+admin.site.register(CarMake, CarMakeAdmin)
+admin.site.register(CarModel, CarModelAdmin)
+

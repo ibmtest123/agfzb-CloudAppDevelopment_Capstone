@@ -27,6 +27,9 @@
                 <li>
                     <a class="btn btn-link" href="#">{{ user.first_name }} ({{ user.username }})</a>
                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    {% if user.is_superuser %}
+                    <a class="btn btn-link" href="{% url 'admin:index' %}">Admin</a> <!-- Button for superuser to access admin -->
+                    {% endif %}
                 </li>
                 {% else %}
                 <li>
