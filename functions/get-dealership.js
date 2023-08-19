@@ -42,7 +42,8 @@ app.get('/dealerships/get', (req, res) => {
     if (id) {
         selector._id = id;
     }
-
+    console.log('Query parameters:', req.query);
+    console.log('Selector:', selector);
     // Query the Cloudant database using the selector
     db.find({
         selector: selector

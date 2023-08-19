@@ -2,17 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dealership Review</title>
-    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        ul.reviews {
+            list-style: none;
+            padding: 0;
+        }
+        ul.reviews li {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
-    <body>
-
-    <!--Add a nav bar here -->
-
-    <!-- Add reviews as cards -->
-
-    </body>
-
+<body>
+    <div class="container">
+        <h1 class="text-center">Dealer Details</h1>
+        <ul class="reviews">
+            {% for review in reviews %}
+            <li>
+                <h4>{{ review.name }}</h4>
+                <p><strong>Car:</strong> {{ review.car_make }} {{ review.car_model }} ({{ review.car_year }})</p>
+                <p><strong>Purchase Date:</strong> {{ review.purchase_date }}</p>
+                <p><strong>Review:</strong> {{ review.review }}</p>
+                <p><strong>Sentiment:</strong> {{ review.sentiment }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
 </html>
