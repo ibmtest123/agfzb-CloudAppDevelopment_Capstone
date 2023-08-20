@@ -46,7 +46,9 @@ def get_dealers_from_cf(url, **kwargs):
                 address=dealer_data.get("address"),
                 city=dealer_data.get("city"),
                 full_name=dealer_data.get("full_name"),
-                id=dealer_data.get("id")
+                id=dealer_data.get("id"),
+                st=dealer_data.get("st"),
+                zip=dealer_data.get("zip"),
             )
             results.append(dealer_obj)
     return results
@@ -64,7 +66,9 @@ def get_dealer_by_id_from_cf(url, id):
             address=json_result.get("address"),
             city=json_result.get("city"),
             full_name=json_result.get("full_name"),
-            id=json_result.get("id")
+            id=json_result.get("id"),
+            zip=dealer_data.get("zip"),
+            st=dealer_data.get("st"),
         )
         return dealer_obj
     return None
