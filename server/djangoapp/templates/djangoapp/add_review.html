@@ -10,7 +10,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 </head>
-    <body>
-    <!--Add review form here -->
-    </body>
+<body>
+    <h1>Add Review</h1>
+    {% if dealer %}
+    <h2>Dealer Information</h2>
+    <p>Name: {{ dealer.name }}</p>
+    <p>Address: {{ dealer.address }}</p>
+    <!-- Add other dealer information here -->
+    {% endif %}
+    
+    <h2>Select a Car</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="car">Select a Car:</label>
+        <select name="car" id="car">
+            {% for car in cars %}
+            <option value="{{ car.id }}">{{ car.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="content">Review:</label><br>
+        <textarea name="content" id="content" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" value="Submit Review">
+    </form>
+    
+    <p><a href="{% url 'djangoapp:about' %}">Back to Dealer Details</a></p>
+</body>
 </html>

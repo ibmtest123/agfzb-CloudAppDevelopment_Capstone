@@ -40,13 +40,15 @@ def get_dealers_from_cf(url, **kwargs):
     results = []
     # Call get_request with a URL parameter
     json_result = get_request(url)
-    
-    if isinstance(json_result, list):  # Check if json_result is a list
-        for dealer in json_result:
-            dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"],
-                                   id=dealer["id"])
+    if isinstance(json_result, list):
+        for dealer_data in json_result:
+            dealer_obj = CarDealer(
+                address=dealer_data.get("address"),
+                city=dealer_data.get("city"),
+                full_name=dealer_data.get("full_name"),
+                id=dealer_data.get("id")
+            )
             results.append(dealer_obj)
-    
     return results
 
 
@@ -56,20 +58,16 @@ def get_dealers_from_cf(url, **kwargs):
 # - Parse JSON results into a DealerView object list
 def get_dealer_by_id_from_cf(url, id):
     json_result = get_request(url, id=id)
-
-    if json_result and isinstance(json_result, list) and len(json_result) > 0:
-        dealer_doc = json_result[0]
-        full_name = dealer_doc.get("full_name", "Unknown Dealer")  # Set a default value if full_name is missing or None
+    
+    if json_result and isinstance(json_result, dict):  # Check if json_result is a dictionary
         dealer_obj = CarDealer(
-            address=dealer_doc.get("address"),
-            city=dealer_doc.get("city"),
-            id=dealer_doc.get("id"),
-            full_name=full_name
-            # You can add more attributes here if needed
+            address=json_result.get("address"),
+            city=json_result.get("city"),
+            full_name=json_result.get("full_name"),
+            id=json_result.get("id")
         )
         return dealer_obj
-    else:
-        return None
+    return None
 
 def analyze_review_sentiments(text):
     url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/e0644675-9fce-4a74-aee4-2fc8f745c9ab"
@@ -101,11 +99,11 @@ def get_dealer_reviews_from_cf(url, **kwargs):
             purchase=reviews_data.get("purchase"),
             review=reviews_data.get("review")
         )
+
         
         sentiment_result = analyze_review_sentiments(review_obj.review)
         review_obj.sentiment = sentiment_result
         results.append(review_obj)
-        
 
     return results
     

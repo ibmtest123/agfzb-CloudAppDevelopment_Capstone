@@ -14,21 +14,36 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
             margin-bottom: 20px;
+            color: #333;
         }
         ul.reviews {
             list-style: none;
             padding: 0;
         }
         ul.reviews li {
-            background-color: #ffffff;
-            border: 1px solid #dee2e6;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
             border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        h4 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        strong {
+            color: #333;
         }
     </style>
 </head>
@@ -36,10 +51,21 @@
 <body>
     <div class="container">
         <h1 class="text-center">Dealer Details</h1>
+
+        <!-- Display Dealer Information -->
+        <h2>Dealer Information</h2>
+        <div class="dealer-info">
+            <h2>{{ dealers.0.full_name }}</h2>
+            <p><strong>City:</strong> {{ dealers.0.city }}</p>
+            <p><strong>Address:</strong> {{ dealers.0.address }}</p>
+        </div>
+
+        <!-- Display Reviews -->
+        <h2>Reviews</h2>
         <ul class="reviews">
             {% for review in reviews %}
             <li>
-                <h4>{{ review.name }}</h4>
+                <h4>{{ review.reviewer_name }}</h4>
                 <p><strong>Car:</strong> {{ review.car_make }} {{ review.car_model }} ({{ review.car_year }})</p>
                 <p><strong>Purchase Date:</strong> {{ review.purchase_date }}</p>
                 <p><strong>Review:</strong> {{ review.review }}</p>

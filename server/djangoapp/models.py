@@ -46,7 +46,7 @@ class DealerReview:
         self.name = name
         self.purchase = purchase
         self.review = review
-        # Optional attributes"
-
+        # Optional attributes
+        self.sentiment = ""
     def __str__(self):
         return "Review: " + self.review
