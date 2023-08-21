@@ -31,6 +31,7 @@ dbCloudantConnect().then((database) => {
 app.use(express.json());
 
 // Define a route to get all dealerships with optional state and ID filters
+// Define a route to get dealerships with optional state and id filters
 app.get('/dealerships/get', (req, res) => {
     const { state, id } = req.query;
 
@@ -40,7 +41,7 @@ app.get('/dealerships/get', (req, res) => {
         selector.state = state;
     }
     if (id) {
-        selector._id = id;
+        selector.id = Number(id); // Convert id to a number
     }
     console.log('Query parameters:', req.query);
     console.log('Selector:', selector);
@@ -56,6 +57,8 @@ app.get('/dealerships/get', (req, res) => {
     });
 });
 
+// Start the Express server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
